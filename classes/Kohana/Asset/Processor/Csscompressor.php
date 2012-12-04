@@ -1,13 +1,13 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 /**
-* jsminplus engine
+* minify_css_compressor processor
 *
 * @package    Despark/asset-merger
 * @author     Ivan Kerin
 * @copyright  (c) 2011-2012 Despark Ltd.
 * @license    http://creativecommons.org/licenses/by-sa/3.0/legalcode
 */
-abstract class Kohana_Asset_Processor_Jsminplus {
+abstract class Kohana_Asset_Processor_Csscompressor {
 
 	/**
 	 * Process asset content
@@ -18,9 +18,9 @@ abstract class Kohana_Asset_Processor_Jsminplus {
 	static public function process($content)
 	{
 		// Include the processor
-		include_once Kohana::find_file('vendor', 'jsminplus/jsminplus');
+		include_once Kohana::find_file('vendor', 'minify_css_compressor/Compressor');
 		
-		return jsminplus::minify($content);
+		return Minify_CSS_Compressor::process($content);
 	}
 
-} // End Asset_Processor_Jsminplus
+} // End Asset_Processor_Csscompressor

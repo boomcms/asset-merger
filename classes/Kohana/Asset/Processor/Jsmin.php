@@ -18,9 +18,9 @@ abstract class Kohana_Asset_Processor_Jsmin {
 	static public function process($content)
 	{
 		// Include the processor
-		include_once Kohana::find_file('vendor', 'jsmin/jsmin-1.1.1');
-		
-		return jsmin::minify($content);
+		include_once Kohana::find_file('vendor', 'jsmin/JSMin');
+
+		return JSMin::minify($content);
 	}
 
 } // End Asset_Processor_Jsmin

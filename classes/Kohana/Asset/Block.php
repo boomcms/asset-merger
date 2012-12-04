@@ -1,19 +1,19 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 /**
-* Combines assets and merges them to single files in production
-*
-* @package    Despark/asset-merger
-* @author     Ivan Kerin
-* @copyright  (c) 2011-2012 Despark Ltd.
-* @license    http://creativecommons.org/licenses/by-sa/3.0/legalcode
-*/
+ * Combines assets and merges them to single files in production
+ *
+ * @package    Despark/asset-merger
+ * @author     Ivan Kerin
+ * @copyright  (c) 2011-2012 Despark Ltd.
+ * @license    http://creativecommons.org/licenses/by-sa/3.0/legalcode
+ */
 abstract class Kohana_Asset_Block extends Asset {
 
 	/**
 	 * @var  string  content
 	 */
 	protected $_content = NULL;
-	
+
 	public function content()
 	{
 		return $this->_content;
@@ -33,11 +33,11 @@ abstract class Kohana_Asset_Block extends Asset {
 
 		// Set condition
 		$this->_condition = Arr::get($options, 'condition');
-		
+
 		// Set content, file and type
 		$this->_content = $content;
-		$this->_file    = 'Asset Block';
-		$this->_type    = $type;
+		$this->_file = 'Asset Block';
+		$this->_type = $type;
 	}
 
 	/**
@@ -68,14 +68,21 @@ abstract class Kohana_Asset_Block extends Asset {
 	 */
 	public function render($process = NULL)
 	{
-		switch($this->type())
+		switch ($this->type())
 		{
 			case Assets::JAVASCRIPT:
-				$html = '<script type="text/javascript">'.$this->compile($process)."</script>";
-			break;
+				$compiled = $this->compile($process);
+				if (stristr($compiled, '<script'))
+				{
+					$html = $compiled;
+				} else
+				{
+					$html = '<script type="text/javascript">'.$compiled."</script>";
+				}
+				break;
 			case Assets::STYLESHEET:
 				$html = '<style media="all">'.$this->compile()."</style>";
-			break;
+				break;
 		}
 
 		return $html;

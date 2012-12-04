@@ -354,4 +354,44 @@ abstract class Kohana_Assets {
 		return $this->add('Asset_Block', Assets::STYLESHEET, $css, $options);
 	}
 
+	/**
+	 * Begin js block
+	 */
+	public function js_block_begin()
+	{
+		ob_start();
+	}
+
+	/**
+	 * End JS block
+	 *
+	 * @param array $options
+	 * @return Assets
+	 */
+	public function js_block_end($options = array())
+	{
+		$script = ob_get_clean();
+		return $this->add('Asset_Block', Assets::JAVASCRIPT, $script, $options);
+	}
+
+	/**
+	 * Begin CSS block
+	 */
+	public function css_block_begin()
+	{
+		ob_start();
+	}
+
+	/**
+	 * End CSS block
+	 *
+	 * @param array $options
+	 * @return Assets
+	 */
+	public function css_block_end($options = array())
+	{
+		$script = ob_get_clean();
+		return $this->add('Asset_Block', Assets::STYLESHEET, $script, $options);
+	}
+
 } // End Assets

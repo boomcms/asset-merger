@@ -95,7 +95,7 @@ abstract class Kohana_Asset {
 	 * @var  string  file
 	 */
 	protected $_file = NULL;
-	
+
 	/**
 	 * @var  array  engines
 	 */
@@ -163,7 +163,7 @@ abstract class Kohana_Asset {
 
 	/**
 	 * Get the engines that will be used to compile this asset
-	 * @return array 
+	 * @return array
 	 */
 	public function engines()
 	{
@@ -178,7 +178,7 @@ abstract class Kohana_Asset {
 	{
 		return $this->_type;
 	}
-	
+
 	/**
 	 * Get the processor of this asset
 	 * @return string
@@ -187,7 +187,7 @@ abstract class Kohana_Asset {
 	{
 		return $this->_processor;
 	}
-	
+
 	/**
 	 * Get the condition
 	 *
@@ -282,7 +282,7 @@ abstract class Kohana_Asset {
 		// Get file contents
 		$content = file_get_contents($this->source_file());
 
-		foreach ($this->engines() as $engine) 
+		foreach ($this->engines() as $engine)
 		{
 			// Process content with each engine
 			$content = Asset_Engine::process($engine, $content, $this);
@@ -353,7 +353,8 @@ abstract class Kohana_Asset {
 	 */
 	public function needs_recompile()
 	{
-		return Assets::is_modified_later($this->destination_file(), $this->last_modified());
+		// Always compile less files in development environment since an included file may have been changed.
+		return Assets::is_modified_later($this->destination_file(), $this->last_modified()) OR (in_array('less', $this->_engines) AND Kohana::$environment == Kohana::DEVELOPMENT);
 	}
 
 } // End Asset

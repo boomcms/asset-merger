@@ -1,0 +1,11 @@
+{
+    "name": "boomcms/assets-merger",
+    "require": {
+        "kohana/core": ">=3.3"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-3.3/develop":  "3.3.x-dev"
+	}
+    }
+}
